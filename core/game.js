@@ -6,7 +6,6 @@ let remainingDares = [];
 
 let currentType = null;
 
-// Load data
 async function loadData() {
   const t = await fetch("./data/truths.json");
   const d = await fetch("./data/dares.json");
@@ -22,7 +21,6 @@ function resetPools() {
   remainingDares = [...dares];
 }
 
-// Get next without repeat
 function getNext(type) {
   let pool = type === "truth" ? remainingTruths : remainingDares;
 
