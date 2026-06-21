@@ -1,32 +1,40 @@
 let truths = [];
 let dares = [];
 
-let currentMode = "single"; // future-proofing
-let currentPrompt = "";
+let remainingTruths = [];
+let remainingDares = [];
 
-// Load data from JSON files
+let currentType = null;
+
+// Load data
 async function loadData() {
-  const tRes = await fetch("./data/truths.json");
-  const dRes = await fetch("./data/dares.json");
+  const t = await fetch("./data/truths.json");
+  const d = await fetch("./data/dares.json");
 
-  truths = await tRes.json();
-  dares = await dRes.json();
+  truths = await t.json();
+  dares = await d.json();
+
+  resetPools();
 }
 
-// Random picker
-function getRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function resetPools() {
+  remainingTruths = [...truths];
+  remainingDares = [...dares];
 }
 
-// Generate prompt
-function generatePrompt(type) {
-  if (type === "truth") {
-    currentPrompt = getRandom(truths);
-  } else if (type === "dare") {
-    currentPrompt = getRandom(dares);
-  } else {
-    currentPrompt = Math.random() > 0.5 ? getRandom(truths) : getRandom(dares);
+// Get next without repeat
+function getNext(type) {
+  let pool = type === "truth" ? remainingTruths : remainingDares;
+
+  if (pool.length === 0) {
+    resetPools();
+    pool = type === "truth" ? remainingTruths : remainingDares;
   }
 
-  return currentPrompt;
+  const index = Math.floor(Math.random() * pool.length);
+  const item = pool[index];
+
+  pool.splice(index, 1);
+
+  return item;
 }
