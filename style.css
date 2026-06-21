@@ -1,15 +1,14 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #0b0b0f;
   color: white;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
-/* Screens */
 .screen {
   text-align: center;
   width: 90%;
@@ -20,51 +19,52 @@ body {
   display: none;
 }
 
-/* Text */
 .title {
   font-size: 2.5rem;
-  margin-bottom: 10px;
 }
 
-.subtitle {
-  opacity: 0.7;
-  margin-bottom: 30px;
-}
-
-/* Buttons */
 button {
-  padding: 12px 20px;
+  padding: 12px 18px;
   margin: 10px;
-  border: none;
   border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
+  border: none;
   background: #1f1f2e;
   color: white;
-  transition: 0.2s;
+  cursor: pointer;
 }
 
-button:hover {
-  transform: scale(1.05);
-  background: #2a2a40;
-}
-
-/* Prompt box */
-.prompt {
-  font-size: 1.4rem;
-  padding: 30px;
-  border-radius: 15px;
+/* 🔮 CARD (main mechanic) */
+.card {
   background: #151522;
-  min-height: 120px;
+  height: 200px;
+  border-radius: 18px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
   transition: 0.2s;
+  user-select: none;
 }
 
-/* Controls */
-.controls {
-  display: flex;
-  justify-content: center;
+.card:active {
+  transform: scale(0.98);
+}
+
+.status {
+  margin-top: 15px;
+  opacity: 0.7;
+}
+
+/* animation state */
+.shaking {
+  animation: shake 0.4s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(2px,-2px); }
+  50% { transform: translate(-2px,2px); }
+  75% { transform: translate(2px,2px); }
+  100% { transform: translate(0,0); }
 }
