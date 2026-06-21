@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Truth or Dare</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HOME SCREEN -->
+  <!-- HOME -->
   <div id="home" class="screen">
     <h1 class="title">Truth or Dare</h1>
-    <p class="subtitle">Pick your poison</p>
 
     <div class="menu">
       <button onclick="startGame('truth')">Truth</button>
@@ -19,14 +18,17 @@
     </div>
   </div>
 
-  <!-- GAME SCREEN -->
+  <!-- GAME -->
   <div id="game" class="screen hidden">
-    <div id="promptBox" class="prompt">Ready?</div>
 
-    <div class="controls">
-      <button onclick="nextPrompt()">Next</button>
-      <button onclick="backHome()">Home</button>
+    <div id="card" class="card" onclick="reveal()">
+      <div id="cardText">Tap to reveal</div>
     </div>
+
+    <div id="status" class="status">Tap the card</div>
+
+    <button onclick="backHome()">Home</button>
+
   </div>
 
   <script src="core/game.js"></script>
