@@ -1,6 +1,11 @@
 const home = document.getElementById("home");
 const game = document.getElementById("game");
-const promptBox = document.getElementById("promptBox");
+
+const card = document.getElementById("card");
+const cardText = document.getElementById("cardText");
+const status = document.getElementById("status");
+
+let locked = false;
 
 async function init() {
   await loadData();
@@ -8,41 +13,43 @@ async function init() {
 
 init();
 
-// Start game
 function startGame(type) {
   currentType = type;
 
   home.classList.add("hidden");
   game.classList.remove("hidden");
 
-  showNext();
+  resetCard();
 }
 
-// Show next prompt
-function showNext() {
-  const prompt = getNext(currentType);
-  animatePrompt(prompt);
+function reveal() {
+  if (locked) return;
+
+  locked = true;
+
+  // start mystery mode
+  card.classList.add("shaking");
+  cardText.innerText = "Randomizing...";
+  status.innerText = "Hold on...";
+
+  setTimeout(() => {
+    const prompt = getNext(currentType);
+
+    card.classList.remove("shaking");
+
+    cardText.innerText = prompt;
+    status.innerText = "Tap for next";
+
+    locked = false;
+  }, 900);
 }
 
-// Next button
-function nextPrompt() {
-  showNext();
+function resetCard() {
+  cardText.innerText = "Tap to reveal";
+  status.innerText = "Let the game decide";
 }
 
-// Back home
 function backHome() {
   game.classList.add("hidden");
   home.classList.remove("hidden");
-}
-
-// Smooth animation feel
-function animatePrompt(text) {
-  promptBox.style.opacity = 0;
-  promptBox.style.transform = "scale(0.95)";
-
-  setTimeout(() => {
-    promptBox.innerText = text;
-    promptBox.style.opacity = 1;
-    promptBox.style.transform = "scale(1)";
-  }, 120);
 }
