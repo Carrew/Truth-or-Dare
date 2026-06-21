@@ -1,21 +1,48 @@
+const home = document.getElementById("home");
+const game = document.getElementById("game");
+const promptBox = document.getElementById("promptBox");
+
 async function init() {
   await loadData();
 }
 
 init();
 
-function showTruth() {
-  document.getElementById("promptBox").innerText = generatePrompt("truth");
+// Start game
+function startGame(type) {
+  currentType = type;
+
+  home.classList.add("hidden");
+  game.classList.remove("hidden");
+
+  showNext();
 }
 
-function showDare() {
-  document.getElementById("promptBox").innerText = generatePrompt("dare");
+// Show next prompt
+function showNext() {
+  const prompt = getNext(currentType);
+  animatePrompt(prompt);
 }
 
-function showRandom() {
-  document.getElementById("promptBox").innerText = generatePrompt("random");
+// Next button
+function nextPrompt() {
+  showNext();
 }
 
-function next() {
-  document.getElementById("promptBox").innerText = "Pick again 🔥";
+// Back home
+function backHome() {
+  game.classList.add("hidden");
+  home.classList.remove("hidden");
+}
+
+// Smooth animation feel
+function animatePrompt(text) {
+  promptBox.style.opacity = 0;
+  promptBox.style.transform = "scale(0.95)";
+
+  setTimeout(() => {
+    promptBox.innerText = text;
+    promptBox.style.opacity = 1;
+    promptBox.style.transform = "scale(1)";
+  }, 120);
 }
